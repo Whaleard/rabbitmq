@@ -2,6 +2,7 @@ package com.example.rabbitmq.three;
 
 import com.example.rabbitmq.util.RabbitMqUtil;
 import com.rabbitmq.client.Channel;
+import com.rabbitmq.client.MessageProperties;
 
 import java.util.Scanner;
 
@@ -21,7 +22,8 @@ public class Task {
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
             String message = scanner.next();
-            channel.basicPublish("", TASK_QUEUE_NAME, null, message.getBytes());
+            // 设置生产者发送消息为持久化消息（保存到磁盘上），非持久化消息保存在内存中
+            channel.basicPublish("", TASK_QUEUE_NAME, MessageProperties.PERSISTENT_TEXT_PLAIN, message.getBytes());
             System.out.println("生产者发送消息：" + message);
         }
     }
