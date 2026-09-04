@@ -34,7 +34,9 @@ public class Worker02 {
         };
 
         // 设置不公平分发
-        int prefetchCount = 1;
+        // int prefetchCount = 1;
+        // 预取值是5
+        int prefetchCount = 5;
         channel.basicQos(prefetchCount);
 
         // 采用手动应答
