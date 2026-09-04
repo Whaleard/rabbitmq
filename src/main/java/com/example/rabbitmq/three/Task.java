@@ -13,8 +13,10 @@ public class Task {
     public static void main(String[] args) throws Exception {
         Channel channel = RabbitMqUtil.getChannel();
 
+        // 消息队列持久化
+        boolean durable = true;
         // 声明队列
-        channel.queueDeclare(TASK_QUEUE_NAME, false, false, false, null);
+        channel.queueDeclare(TASK_QUEUE_NAME, durable, false, false, null);
         // 从控制台中输入信息
         Scanner scanner = new Scanner(System.in);
         while (scanner.hasNext()) {
