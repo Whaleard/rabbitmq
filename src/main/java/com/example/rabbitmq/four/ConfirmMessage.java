@@ -22,7 +22,9 @@ public class ConfirmMessage {
         // 单个确认
         // publishMessageIndividually();
         // 批量确认
-        publishMessageBatch();
+        // publishMessageBatch();
+        // 异步确认
+        publishMessageAsync();
     }
 
     /**
@@ -84,5 +86,44 @@ public class ConfirmMessage {
         // 结束时间
         long end = System.currentTimeMillis();
         System.out.println("发布" + MESSAGE_COUNT + "个批量确认消息，耗时：" + (end - begin) + "ms");
+    }
+
+    /**
+     * 异步确认发布
+     * @throws Exception
+     */
+    public static void publishMessageAsync() throws Exception {
+        Channel channel = RabbitMqUtil.getChannel();
+        // 队列的声明
+        channel.queueDeclare(TASK_QUEUE_NAME, false, false, false, null);
+        // 开启发布确认
+        channel.confirmSelect();
+        // 开始时间
+        long begin = System.currentTimeMillis();
+
+        /**
+         * 消息确认成功回调函数
+         *  deliveryTag：消息的标记
+         *  multiple：是否批量确认
+         */
+        ConfirmCallback ackCallback = (deliveryTag, multiple) -> {
+            System.out.println("发送成功的消息：" + deliveryTag);
+        };
+        // 消息确认失败回调函数
+        ConfirmCallback nackCallback = (deliveryTag, multiple) -> {
+            System.out.println("发送失败的消息：" + deliveryTag);
+        };
+        // 消息的监听器，监听哪些消息成功了，哪些消息失败了
+        channel.addConfirmListener(ackCallback, nackCallback);
+
+        // 发送消息，异步确认
+        for (int i = 0; i < MESSAGE_COUNT; i++) {
+            String message = "hello world" + i;
+            channel.basicPublish("", TASK_QUEUE_NAME, null, message.getBytes());
+        }
+
+        // 结束时间
+        long end = System.currentTimeMillis();
+        System.out.println("发布" + MESSAGE_COUNT + "个异步确认消息，耗时：" + (end - begin) + "ms");
     }
 }
