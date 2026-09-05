@@ -4,6 +4,9 @@ import com.example.rabbitmq.util.RabbitMqUtil;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.ConfirmCallback;
 
+import java.util.concurrent.ConcurrentNavigableMap;
+import java.util.concurrent.ConcurrentSkipListMap;
+
 /**
  * 发布确认模式
  *  1、单个确认
@@ -98,8 +101,9 @@ public class ConfirmMessage {
         channel.queueDeclare(TASK_QUEUE_NAME, false, false, false, null);
         // 开启发布确认
         channel.confirmSelect();
-        // 开始时间
-        long begin = System.currentTimeMillis();
+
+        // 线程安全有序的一个哈希表，适用于高并发的情况，将序号与消息进行关联
+        ConcurrentSkipListMap<Long, String> outstandingConfirms = new ConcurrentSkipListMap<>();
 
         /**
          * 消息确认成功回调函数
@@ -107,19 +111,31 @@ public class ConfirmMessage {
          *  multiple：是否批量确认
          */
         ConfirmCallback ackCallback = (deliveryTag, multiple) -> {
+            if (multiple) {
+                // 删除已经确认的消息
+                ConcurrentNavigableMap<Long, String> confirmed = outstandingConfirms.headMap(deliveryTag);
+                confirmed.clear();
+            } else {
+                outstandingConfirms.remove(deliveryTag);
+            }
             System.out.println("发送成功的消息：" + deliveryTag);
         };
         // 消息确认失败回调函数
         ConfirmCallback nackCallback = (deliveryTag, multiple) -> {
-            System.out.println("发送失败的消息：" + deliveryTag);
+            String message = outstandingConfirms.get(deliveryTag);
+            System.out.println("发送失败的消息：" + message + "，消息标记：" + deliveryTag);
         };
         // 消息的监听器，监听哪些消息成功了，哪些消息失败了
         channel.addConfirmListener(ackCallback, nackCallback);
 
+        // 开始时间
+        long begin = System.currentTimeMillis();
         // 发送消息，异步确认
         for (int i = 0; i < MESSAGE_COUNT; i++) {
             String message = "hello world" + i;
             channel.basicPublish("", TASK_QUEUE_NAME, null, message.getBytes());
+            // 记录下所有要发送的消息
+            outstandingConfirms.put(channel.getNextPublishSeqNo(), message);
         }
 
         // 结束时间
