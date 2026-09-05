@@ -20,7 +20,9 @@ public class ConfirmMessage {
 
     public static void main(String[] args) throws Exception {
         // 单个确认
-        publishMessageIndividually();
+        // publishMessageIndividually();
+        // 批量确认
+        publishMessageBatch();
     }
 
     /**
@@ -49,5 +51,38 @@ public class ConfirmMessage {
         // 结束时间
         long end = System.currentTimeMillis();
         System.out.println("发布" + MESSAGE_COUNT + "个单独确认消息，耗时：" + (end - begin) + "ms");
+    }
+
+    /**
+     * 批量确认发布
+     * @throws Exception
+     */
+    public static void publishMessageBatch() throws Exception {
+        Channel channel = RabbitMqUtil.getChannel();
+        // 队列的声明
+        channel.queueDeclare(TASK_QUEUE_NAME, false, false, false, null);
+        // 开启发布确认
+        channel.confirmSelect();
+        // 开始时间
+        long begin = System.currentTimeMillis();
+
+        // 批量确认消息大小
+        int batchSize = 100;
+
+        // 发送消息，批量确认
+        for (int i = 0; i < MESSAGE_COUNT; i++) {
+            String message = "hello world" + i;
+            channel.basicPublish("", TASK_QUEUE_NAME, null, message.getBytes());
+
+            // 判断达到100条消息的时候，批量确认一次
+            if (i % batchSize == 0) {
+                // 发布确认
+                channel.waitForConfirms();
+            }
+        }
+
+        // 结束时间
+        long end = System.currentTimeMillis();
+        System.out.println("发布" + MESSAGE_COUNT + "个批量确认消息，耗时：" + (end - begin) + "ms");
     }
 }
