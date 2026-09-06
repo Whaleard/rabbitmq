@@ -39,7 +39,7 @@ public class Consumer {
          * String basicConsume(String queue, boolean autoAck, DeliverCallback deliverCallback, CancelCallback cancelCallback) throws IOException;
          *  queue：消费哪个队列
          *  autoAck：消费成功之后是否要自动应答。true表示自动应答；false表示手动应答
-         *  deliverCallback：消费者未成功消费的回调
+         *  deliverCallback：消费者成功消费的回调
          *  cancelCallback：消费者取消消费的回调
          */
         channel.basicConsume(QUEUE_NAME, true, deliverCallback, cancelCallback);
