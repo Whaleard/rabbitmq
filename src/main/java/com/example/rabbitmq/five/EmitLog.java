@@ -15,6 +15,7 @@ public class EmitLog {
 
     public static void main(String[] args) throws Exception {
         Channel channel = RabbitMqUtil.getChannel();
+        // 声明一个交换机
         channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
 
         Scanner scanner = new Scanner(System.in);

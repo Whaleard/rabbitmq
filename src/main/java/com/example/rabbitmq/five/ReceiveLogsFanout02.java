@@ -14,12 +14,12 @@ public class ReceiveLogsFanout02 {
 
     public static void main(String[] args) throws Exception {
         Channel channel = RabbitMqUtil.getChannel();
-        // 声明一个交换机
-        channel.exchangeDeclare(EXCHANGE_NAME, "fanout");
         // 声明一个临时队列
         String queueName = channel.queueDeclare().getQueue();
+        // 绑定交换机和队列
+        channel.queueBind(queueName, EXCHANGE_NAME, "");
 
-        System.out.println("等待接收消息，把接收到的消息打印在屏幕上");
+        System.out.println("ReceiveLogsFanout02等待接收消息，把接收到的消息打印在屏幕上");
 
         // 接收消息回调
         DeliverCallback deliverCallback = (consumerTag, delivery) -> {
