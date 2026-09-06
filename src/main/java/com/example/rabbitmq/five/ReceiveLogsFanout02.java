@@ -7,7 +7,7 @@ import com.rabbitmq.client.DeliverCallback;
 /**
  * 消息接收
  */
-public class ReceiveLogs02 {
+public class ReceiveLogsFanout02 {
 
     // 交换机名称
     public static final String EXCHANGE_NAME = "logs";
