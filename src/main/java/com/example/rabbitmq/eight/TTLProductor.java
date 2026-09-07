@@ -26,6 +26,5 @@ public class TTLProductor {
             String message = "info" + i;
             channel.basicPublish(NORMAL_EXCHANGE, "normal", properties, message.getBytes());
         }
-
     }
 }

@@ -49,6 +49,7 @@ public class TTLConsumer01 {
         arguments.put("x-dead-letter-exchange", DEAD_EXCHANGE);
         // 为正常情况队列设置死信路由键
         arguments.put("x-dead-letter-routing-key", "dead");
+
         channel.queueDeclare(NORMAL_QUEUE, false, false, false, arguments);
         // 声明死信队列
         channel.queueDeclare(DEAD_QUEUE, false, false, false, null);
