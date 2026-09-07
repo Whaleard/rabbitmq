@@ -1,12 +1,8 @@
 package com.example.rabbitmq.eight;
 
 import com.example.rabbitmq.util.RabbitMqUtil;
-import com.rabbitmq.client.BuiltinExchangeType;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.DeliverCallback;
-
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 死信队列消费者
