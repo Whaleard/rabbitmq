@@ -1,7 +1,6 @@
 package com.example.rabbitmq.eight;
 
 import com.example.rabbitmq.util.RabbitMqUtil;
-import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 
 /**
