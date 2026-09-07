@@ -49,6 +49,7 @@ public class MaxLengthConsumer01 {
         arguments.put("x-dead-letter-routing-key", "dead");
         // 设置正常情况队列的最大长度
         arguments.put("x-max-length", 6);
+
         channel.queueDeclare(NORMAL_QUEUE, false, false, false, arguments);
         // 声明死信队列
         channel.queueDeclare(DEAD_QUEUE, false, false, false, null);

@@ -21,6 +21,5 @@ public class MaxLengthProductor {
             String message = "info" + i;
             channel.basicPublish(NORMAL_EXCHANGE, "normal", null, message.getBytes());
         }
-
     }
 }
