@@ -26,8 +26,8 @@ public class ReceiveLogsTopic02 {
         channel.queueBind(queueName, EXCHANGE_NAME, "lazy.#");
         System.out.println("等待接收消息...");
 
-        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-            System.out.println("接收队列：" + queueName + "，绑定键：" + delivery.getEnvelope().getRoutingKey() + "，消息内容：" + new String(delivery.getBody(), "UTF-8"));
+        DeliverCallback deliverCallback = (consumerTag, message) -> {
+            System.out.println("接收队列：" + queueName + "，绑定键：" + message.getEnvelope().getRoutingKey() + "，消息内容：" + new String(message.getBody(), "UTF-8"));
         };
         // 接收消息
         channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {});

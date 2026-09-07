@@ -24,8 +24,8 @@ public class ReceiveLogsFanout02 {
         System.out.println("ReceiveLogsFanout02等待接收消息，把接收到的消息打印在屏幕上");
 
         // 接收消息回调
-        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-            System.out.println("ReceiveLogsFanout02接收到消息：" + new String(delivery.getBody(), "UTF-8"));
+        DeliverCallback deliverCallback = (consumerTag, message) -> {
+            System.out.println("ReceiveLogsFanout02接收到消息：" + new String(message.getBody(), "UTF-8"));
         };
         
         channel.basicConsume(queueName, true, deliverCallback, consumerTag -> {});

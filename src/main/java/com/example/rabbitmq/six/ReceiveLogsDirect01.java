@@ -20,8 +20,8 @@ public class ReceiveLogsDirect01 {
         channel.queueBind("direct_queue_1", EXCHANGE_NAME, "info");
 
         // 接收消息
-        DeliverCallback deliverCallback = (consumerTag, delivery) -> {
-            System.out.println("ReceiveLogsDirect01接收到消息：" + new String(delivery.getBody(), "UTF-8"));
+        DeliverCallback deliverCallback = (consumerTag, message) -> {
+            System.out.println("ReceiveLogsDirect01接收到消息：" + new String(message.getBody(), "UTF-8"));
         };
 
         channel.basicConsume("direct_queue_1", true, deliverCallback, consumerTag -> {});
