@@ -14,11 +14,6 @@ public class TTLProductor {
      */
     public static final String NORMAL_EXCHANGE = "normal_exchange";
 
-    /**
-     * 正常情况队列名称
-     */
-    public static final String NORMAL_QUEUE = "normal_queue";
-
     public static void main(String[] args) throws Exception {
         Channel channel = RabbitMqUtil.getChannel();
 
