@@ -8,7 +8,7 @@ import java.util.Scanner;
 /**
  * 消息发送（交换机）
  */
-public class EmitLog {
+public class EmitLogFanout {
 
     /**
      * 交换机名称

@@ -9,7 +9,7 @@ import java.util.Scanner;
 /**
  * 消息发送（交换机）
  */
-public class DirectLog {
+public class EmitLogDirect {
 
     /**
      * 交换机名称
