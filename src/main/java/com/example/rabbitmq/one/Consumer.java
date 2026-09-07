@@ -6,7 +6,10 @@ import com.rabbitmq.client.*;
  * 消费者
  */
 public class Consumer {
-    // 队列的名称
+
+    /**
+     * 队列的名称
+     */
     public static final String QUEUE_NAME = "hello";
 
     /**

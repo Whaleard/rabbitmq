@@ -8,7 +8,9 @@ import java.util.concurrent.TimeUnit;
 
 public class Worker02 {
 
-    // 队列名称
+    /**
+     * 队列名称
+     */
     public static final String TASK_QUEUE_NAME = "ack_queue";
 
     public static void main(String[] args) throws Exception {

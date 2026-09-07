@@ -8,7 +8,10 @@ import com.rabbitmq.client.ConnectionFactory;
  * 生产者
  */
 public class Producer {
-    // 队列名称
+
+    /**
+     * 队列名称
+     */
     public static final String QUEUE_NAME = "hello";
 
     /**

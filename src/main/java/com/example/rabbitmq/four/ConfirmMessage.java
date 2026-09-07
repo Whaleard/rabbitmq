@@ -15,10 +15,14 @@ import java.util.concurrent.ConcurrentSkipListMap;
  */
 public class ConfirmMessage {
 
-    // 队列名称
+    /**
+     * 队列名称
+     */
     public static final String TASK_QUEUE_NAME = "confirm_queue";
 
-    // 批量发消息的个数
+    /**
+     * 批量发消息的个数
+     */
     public static final int MESSAGE_COUNT = 1000;
 
     public static void main(String[] args) throws Exception {

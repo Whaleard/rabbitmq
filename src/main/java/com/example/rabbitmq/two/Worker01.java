@@ -9,7 +9,10 @@ import com.rabbitmq.client.DeliverCallback;
  * 工作线程（消费者）
  */
 public class Worker01 {
-    // 队列名称
+
+    /**
+     * 队列名称
+     */
     public static final String QUEUE_NAME = "hello";
 
     /**

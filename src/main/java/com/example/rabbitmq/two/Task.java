@@ -9,7 +9,10 @@ import java.util.Scanner;
  * 生产者
  */
 public class Task {
-    // 队列名称
+
+    /**
+     * 队列名称
+     */
     public static final String QUEUE_NAME = "hello";
 
     /**
