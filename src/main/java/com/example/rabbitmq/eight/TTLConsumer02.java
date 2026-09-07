@@ -20,7 +20,7 @@ public class TTLConsumer02 {
         System.out.println("等待接收消息...");
 
         DeliverCallback deliverCallback = (consumerTag, message) -> {
-            System.out.println("Consumer02接收到消息：" + new String(message.getBody(), "UTF-8"));
+            System.out.println("TTLConsumer02接收到消息：" + new String(message.getBody(), "UTF-8"));
         };
 
         channel.basicConsume(DEAD_QUEUE, true, deliverCallback, consumerTag -> {});
