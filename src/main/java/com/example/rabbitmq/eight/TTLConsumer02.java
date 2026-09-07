@@ -7,12 +7,7 @@ import com.rabbitmq.client.DeliverCallback;
 /**
  * 死信队列消费者
  */
-public class Consumer02 {
-
-    /**
-     * 死信交换机名称
-     */
-    public static final String DEAD_EXCHANGE = "dead_exchange";
+public class TTLConsumer02 {
 
     /**
      * 死信队列名称

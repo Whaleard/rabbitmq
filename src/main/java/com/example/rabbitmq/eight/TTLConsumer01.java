@@ -11,7 +11,7 @@ import java.util.Map;
 /**
  * 正常队列消费者
  */
-public class Consumer01 {
+public class TTLConsumer01 {
 
     /**
      * 正常情况交换机名称

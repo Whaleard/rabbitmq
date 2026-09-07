@@ -5,9 +5,9 @@ import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 
 /**
- * 死信队列生产者
+ * 生产者（消息TTL过期案例）
  */
-public class Productor {
+public class TTLProductor {
 
     /**
      * 正常情况交换机名称
